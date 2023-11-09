@@ -1,0 +1,34 @@
+# https://borkweb.com/story/apache-rewrite-cheatsheet
+# https://zenverse.net/seo-friendly-urls-with-htaccess/
+# If you want to change URLs like https://mysite.com/article.php?id=45 to https://mysite.com/article-45.html
+# RewriteRule ^article-([0-9]+)\.html$ article.php?id=$1
+Options +FollowSymLinks
+RewriteEngine On
+
+# Otherwise CKeditor image upload is NOT working.
+# For doksoft uploader: https://doksoft.com/forum/?Itemid=126&catid=4&id=114&option=com_kunena&view=topic
+php_flag magic_quotes_gpc off
+
+# Exclude images etc. from being rewritten.
+RewriteRule ^.*\.(gif|jpe?g|png)$ - [L]
+
+RewriteRule ^.*-ID-([0-9]+) products-single.php?id=$1/$ [QSA]
+RewriteRule ^.*-T-([0-9]+) text.php?id=$1/$ [QSA]
+RewriteRule ^.*-([0-9]+) products-list.php?category=$1&id=$1 [QSA]
+
+# Supress php errors
+#php_flag display_startup_errors on
+#php_flag display_errors on
+#php_flag html_errors on
+
+# Tell where to find it
+ErrorDocument 400 /index.php
+ErrorDocument 401 /index.php
+ErrorDocument 403 /index.php
+ErrorDocument 404 /404.php
+ErrorDocument 408 /index.php
+ErrorDocument 410 /index.php
+ErrorDocument 500 /index.php
+
+# Prevent listing of directories with no index.html
+Options -Indexes

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /connect/
+Disallow: /forms/
+Disallow: /includes/
+Disallow: /invoice/
+Disallow: /manage/
